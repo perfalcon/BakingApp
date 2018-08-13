@@ -7,6 +7,7 @@
     <dimen name ="divider_width">1dp</dimen>
     <dimen name="tablet_frame_width">400dp</dimen>
     <dimen name="widget_recipe_textSize">20sp</dimen>
+    <dimen name="widget_ingredient_textSize">15sp</dimen>
     <dimen name="recipe_card_margin">5dp</dimen>
     <dimen name ="recipe_corner_radius">4dp</dimen>
     <dimen name="recipe_card_elevation">6dp</dimen>
