@@ -1,4 +1,4 @@
-package com.example.balav.bakingapp_utils;
+package com.perfalcon.balav.bakingapp;
 
 import org.junit.Test;
 

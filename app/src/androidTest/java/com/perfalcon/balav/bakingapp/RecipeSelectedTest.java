@@ -1,8 +1,5 @@
-package com.example.balav.bakingapp_utils;
+package com.perfalcon.balav.bakingapp;
 
-import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.espresso.matcher.ViewMatchers;
@@ -13,7 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.example.balav.bakingapp_utils.model.Baking;
+import com.perfalcon.balav.bakingapp.MainActivity;
+import com.perfalcon.balav.bakingapp.RecipeAdapter;
+import com.perfalcon.balav.bakingapp.model.Baking;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -23,13 +22,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.app.PendingIntent.getActivity;
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anything;

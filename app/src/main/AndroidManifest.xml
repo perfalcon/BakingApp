@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.balav.bakingapp_utils">
+    package="com.perfalcon.balav.bakingapp">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <application
@@ -23,7 +23,7 @@
             android:label="Recipe Details">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.balav.bakingapp_utils.MainActivity" />
+                android:value="com.perfalcon.balav.bakingapp.MainActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -35,7 +35,7 @@
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.balav.bakingapp_utils.MainActivity" />
+                android:value="com.perfalcon.balav.bakingapp.MainActivity" />
         </activity>
         <activity
             android:name=".StepDetail"
@@ -44,7 +44,7 @@
             android:parentActivityName=".DetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.balav.bakingapp_utils.DetailActivity" />
+                android:value="com.perfalcon.balav.bakingapp.DetailActivity" />
         </activity>
 
         <receiver android:name=".HomeScreenWidgetProvider">
@@ -58,7 +58,7 @@
         </receiver>
 
         <provider
-            android:authorities="com.example.balav.bakingapp_utils"
+            android:authorities="com.perfalcon.balav.bakingapp"
             android:name=".data.IngredientContentProvider"
             android:exported="true"/>
     </application>

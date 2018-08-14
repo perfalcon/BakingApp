@@ -1,4 +1,4 @@
-package com.example.balav.bakingapp_utils;
+package com.perfalcon.balav.bakingapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.example.balav.bakingapp_utils"
+        applicationId "com.perfalcon.balav.bakingapp"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
