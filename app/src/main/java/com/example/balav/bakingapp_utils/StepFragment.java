@@ -203,7 +203,7 @@ public class StepFragment extends Fragment implements View.OnClickListener {
         Log.v (TAG, "Saving the State");
         outState.putInt (STEP_ID,current_position);
         outState.putIntegerArrayList (STEP_KEY,(ArrayList)listSteps);
-        if(mExoPlayer != null) {
+        if(mExoPlayer != null && mExoPlayer.getPlayWhenReady ()) {
             currentMediaPosition = mExoPlayer.getCurrentPosition();
             outState.putLong("Player_Position", currentMediaPosition);
         }

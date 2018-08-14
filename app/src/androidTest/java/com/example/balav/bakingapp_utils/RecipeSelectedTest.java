@@ -75,27 +75,7 @@ public class RecipeSelectedTest {
     }
 
 
-    @Test
-    public void detailActivityTest(){
-        //Nutella Pie
-        onView (ViewMatchers.withId (R.id.rv_recipe))
-                .perform (RecyclerViewActions.actionOnItemAtPosition (1,click ()));
 
- /*       final ActivityTestRule detailActivity = new ActivityTestRule<DetailActivity> (DetailActivity.class);
-        Intent intent = new Intent (InstrumentationRegistry.getContext(),DetailActivity.class);
-        intent.putExtra(DetailActivity.BAKING_KEY,activityRule.getActivity ().mBaking.get (1));
-        detailActivity.launchActivity (intent);
-        detailActivity.getActivity ().runOnUiThread (new Runnable () {
-            @Override
-            public void run() {
-                DetailActivity activity = (DetailActivity)detailActivity.getActivity ();
-                android.support.v4.app.FragmentTransaction transaction = activity.getSupportFragmentManager ().beginTransaction ();
-                RecipeFragment recipeFragment = new RecipeFragment ();
-                transaction.add(recipeFragment,"RecipeFragment");
-                transaction.commit ();
-            }
-        });*/
-    }
 
     public static Matcher<RecyclerView.ViewHolder> withHolderRecipe(final String text) {
         return new BoundedMatcher<RecyclerView.ViewHolder, RecipeAdapter.RecipeViewHolder>(RecipeAdapter.RecipeViewHolder.class) {
