@@ -19,9 +19,9 @@ public class GsonUtils {
 
         Gson gson = new Gson ();
         List<Baking> mBakinglist= gson.fromJson (strJson, new TypeToken<List<Baking>>(){}.getType ());
-            for (Baking mBaking : mBakinglist) {
+           /* for (Baking mBaking : mBakinglist) {
             Log.v(TAG,"Baking -->"+mBaking.toString ());
-            }
+            }*/
             return mBakinglist;
     }
 }

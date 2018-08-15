@@ -3,6 +3,10 @@ package com.perfalcon.balav.bakingapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,28 +28,45 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.perfalcon.balav.bakingapp.IdlingResource.BakingIdlingResource;
 import com.perfalcon.balav.bakingapp.model.Baking;
 import com.perfalcon.balav.bakingapp.utils.GsonUtils;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecipiesLoader.Callback {
 
     private static final String TAG = MainActivity.class.getName();
-    private TextView btnRequest;
     public List<Baking> mBaking;
 
-    private RequestQueue mRequestQueue;
-    private StringRequest mStringRequest;
-
-    private String BAKING_DATA_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
+    // The Idling Resource which will be null in production.
+    @Nullable
+    private BakingIdlingResource mIdlingResource;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_main);
-        sendAndRequestResponse();
+
+    }
+
+    /**
+     * Only called from test, creates and returns a new {@link BakingIdlingResource}.
+     */
+    @VisibleForTesting
+    @NonNull
+    public BakingIdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new BakingIdlingResource ();
+        }
+        return mIdlingResource;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart ();
+        new RecipiesLoader ().downloadRecipe (this, (RecipiesLoader.Callback) MainActivity.this,mIdlingResource);
     }
 
     protected  void displayBakingDetails(){
@@ -55,46 +76,6 @@ public class MainActivity extends AppCompatActivity {
         loadRecipesView();
     }
 
-
-    public void sendAndRequestResponse() {
-        //RequestQueue initialized
-        mRequestQueue = Volley.newRequestQueue(this);
-        //String Request initialized
-        mStringRequest = new StringRequest (Request.Method.GET, BAKING_DATA_URL, new ResponseListener (), new ErrorListener ());
-        mRequestQueue.add(mStringRequest);
-
-    }
-
-    private class ResponseListener implements Response.Listener{
-        @Override
-        public void onResponse(Object response) {
-            //Toast.makeText(getApplicationContext (),"Response :" + response.toString(), Toast.LENGTH_LONG).show();//display the response on screen
-             mBaking= new GsonUtils ().populateBaking (response.toString ());
-            displayBakingDetails();
-        }
-    }
-
-    private class ErrorListener implements Response.ErrorListener{
-        @Override
-        public void onErrorResponse(VolleyError volleyError){
-            Log.i(TAG,"Error :" + volleyError.toString());
-            String message="";
-            if (volleyError instanceof NetworkError) {
-                message = "Cannot connect to Internet...Please check your connection!";
-            } else if (volleyError instanceof ServerError) {
-                message = "The server could not be found. Please try again after some time!!";
-            } else if (volleyError instanceof AuthFailureError) {
-                message = "Cannot connect to Internet...Please check your connection!";
-            } else if (volleyError instanceof ParseError) {
-                message = "Parsing error! Please try again after some time!!";
-            } else if (volleyError instanceof NoConnectionError) {
-                message = "Cannot connect to Internet...Please check your connection!";
-            } else if (volleyError instanceof TimeoutError) {
-                message = "Connection TimeOut! Please check your internet connection.";
-            }
-            Toast.makeText(getApplicationContext (), message, Toast.LENGTH_LONG).show();
-        }
-    }
     private void loadRecipesView(){
         RecyclerView rvRecipe = findViewById(R.id.rv_recipe);
         int no_cols= calculateNoOfColumns(this);
@@ -119,5 +100,11 @@ public class MainActivity extends AppCompatActivity {
         if(noOfColumns < 2)
             noOfColumns = 2;
         return noOfColumns;
+    }
+
+    @Override
+    public void onDone(List<Baking> mRecipes) {
+        mBaking =mRecipes;
+        displayBakingDetails();
     }
 }

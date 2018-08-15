@@ -1,5 +1,8 @@
 package com.perfalcon.balav.bakingapp;
 
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.IdlingRegistry;
+import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.espresso.matcher.ViewMatchers;
@@ -16,6 +19,7 @@ import com.perfalcon.balav.bakingapp.model.Baking;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,6 +27,7 @@ import org.junit.runner.RunWith;
 
 import static android.app.PendingIntent.getActivity;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.registerIdlingResources;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -39,6 +44,7 @@ public class RecipeSelectedTest {
     @Rule
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
+    private IdlingResource mIdlingResource;
     Baking baking;
     int no_recipes;
 
@@ -49,6 +55,11 @@ public class RecipeSelectedTest {
     @Before
     public void setUp(){
         no_recipes = 4;
+    }
+    @Before
+    public void registerIdlingResource() {
+        mIdlingResource = activityRule.getActivity().getIdlingResource();
+        IdlingRegistry.getInstance().register(mIdlingResource);
     }
 
     @Test
@@ -71,7 +82,13 @@ public class RecipeSelectedTest {
         }
     }
 
-
+    // Remember to unregister resources when not needed to avoid malfunction.
+    @After
+    public void unregisterIdlingResource() {
+        if (mIdlingResource != null) {
+            IdlingRegistry.getInstance().unregister(mIdlingResource);
+        }
+    }
 
 
     public static Matcher<RecyclerView.ViewHolder> withHolderRecipe(final String text) {

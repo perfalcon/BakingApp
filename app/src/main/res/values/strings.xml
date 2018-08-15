@@ -6,4 +6,5 @@
     <string name="default_text">Text to added</string>
     <string name="next_step">Move to Next Step</string>
     <string name ="prev_step">Move to Prev Step</string>
+    <string name="loading_msg">Loading Recipies</string>
 </resources>
